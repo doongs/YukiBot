@@ -51,6 +51,7 @@ Mangadex.agent.login("mfa", "mangadex-full-api", false).then(async () => {
   });
 
 setInterval(function() {
+  client.login();
   Mangadex.agent.login("mfa", "mangadex-full-api", false).then(async () => {
     var manga = new Mangadex.Manga();
     await manga.fill(6770);
