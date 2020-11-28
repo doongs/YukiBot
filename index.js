@@ -76,7 +76,7 @@ setInterval(function() {
     });
 
   });
-}, 300000);
+}, 3600000);
 
 function ping(chapter) {
   console.log(`${new Date().toLocaleString()} - Pinging for chapter ${chapter.chapter}`);
