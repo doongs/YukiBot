@@ -1,7 +1,7 @@
 {
   "name": "YukiBot",
   "version": "0.1.0",
-  "description": "DiscordBot for notifying users of Mangadex updates",
+  "description": "Discord bot for notifying users of Mangadex updates",
   "main": "index.js",
   "engines": {
     "node": "12.x",
