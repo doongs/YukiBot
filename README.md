@@ -21,7 +21,7 @@ Running on Repl.it
 	MANGADEX_ID=the Mangadex id for the manga to check (int)
 	PREFIX=the bot command prefix
 	UPDATE_INTERVAL=the time in ms (30 minutes = 8000000)  to wait before checking updates (int)
- - Run the Repl.it repository and the bot should send log messages similar to these in both the console and in Discord
+ - Run the Repl.it repository and the bot should send log messages similar to these
 ![Console Log Example](https://i.imgur.com/85MQtLi.png)	 ![Discord Log Example](https://i.imgur.com/BVlng3W.png)
 ## Commands
 To use the following commands, type [PREFIX].[COMMAND] into any Discord channel
