@@ -1,14 +1,10 @@
+const dotenv = require('dotenv').config();
 const Discord = require('discord.js');
 const Mangadex = require('mangadex-full-api');
-require('dotenv').config();
 const Database = require("@replit/database");
 const db = new Database();
 
-//uncomment this to reset the lastChapter key in the database to 0
-//db.set("lastChapter", 0).then(() => { console.log(`lastChapter set to 0`) });
-
-require('dotenv').config();
-
+//http server to keep the replit running
 const http = require('http');
 const server = http.createServer((req, res) => {
   res.writeHead(200);
@@ -16,72 +12,57 @@ const server = http.createServer((req, res) => {
 });
 server.listen(3000);
 
+//Create the instance of the bot
 const client = new Discord.Client();
-
+//Log message on successful Discord login
 client.on('ready', () => {
-  console.log(`${new Date().toLocaleString()} - Logged in as ${client.user.tag}!`);
+  console.log(`${new Date().toLocaleString()}: Logged in as ${client.user.tag}`);
+  client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()}: Logged in as ${client.user.tag}`);
+});
+//Handle the manual prefix.checkChapter command 
+client.on('message', msg => {
+  if (msg.content === `${process.env.PREFIX}.checkChapter`) {
+    client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()}: Manual chapterpdate requested`);
+    checkChapter();
+  }
 });
 
-client.login();
+//uncomment this to reset the lastChapter key in the database to 0
+//db.set("lastChapter", 0).then(() => { console.log(`lastChapter set to 0`) });
 
-//this runs once on node index.js
-Mangadex.agent.login("mfa", "mangadex-full-api", false).then(async () => {
-    var manga = new Mangadex.Manga();
-    await manga.fill(6770);
-
-    let chapterId = manga.chapters[0].id;
-
-    let chapter = await Mangadex.Chapter.get(chapterId);
-
-    db.get("lastChapter").then(value => {
-      if (value < chapter.chapter) {
-        db.set("lastChapter", chapter.chapter).then(() => { console.log(`${new Date().toLocaleString()} - New chapter detected ${chapter.chapter}`) });
-
-        client.channels.cache.get('782293480038727730').send(`${new Date().toLocaleString()} - New chapter detected ${chapter.chapter}`);
-
-        ping(chapter);
-      } else {
-    
-        console.log(`${new Date().toLocaleString()} - No new chapter, current last chapter is ${value}`);
-
-        client.channels.cache.get('782293480038727730').send(`${new Date().toLocaleString()} - No new chapter, current last chapter is ${value}`);
-      }
-    });
-
-  });
-
-setInterval(function() {
+//Logs the bot into Mangadex and Discord, and determines if a new chapter has been uploaded
+function checkChapter() {
+  //Discord login
   client.login();
-  Mangadex.agent.login("mfa", "mangadex-full-api", false).then(async () => {
+  //Mangadex Login
+  Mangadex.agent.login(process.env.MANGADEX_USERNAME, process.env.MANGADEX_PASSWORD, false).then(async () => {
     var manga = new Mangadex.Manga();
-    await manga.fill(6770);
-
+    await manga.fill(process.env.MANGADEX_ID);
     let chapterId = manga.chapters[0].id;
-
     let chapter = await Mangadex.Chapter.get(chapterId);
-
     db.get("lastChapter").then(value => {
       if (value < chapter.chapter) {
-        db.set("lastChapter", chapter.chapter).then(() => { console.log(`${new Date().toLocaleString()} - New chapter detected ${chapter.chapter}`) });
-
-        client.channels.cache.get('782293480038727730').send(`${new Date().toLocaleString()} - New chapter detected ${chapter.chapter}`);
-
-        ping(chapter);
+        db.set("lastChapter", chapter.chapter).then(() => { console.log(`${new Date().toLocaleString()}: New chapter is Ch. ${chapter.chapter}`) });
+        client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()}: New chapter is Ch. ${chapter.chapter}`);
+        sendMessage(chapter);
       } else {
-    
-        console.log(`${new Date().toLocaleString()} - No new chapter, current last chapter is ${value}`);
-
-        client.channels.cache.get('782293480038727730').send(`${new Date().toLocaleString()} - No new chapter, current last chapter is ${value}`);
+        console.log(`${new Date().toLocaleString()}: Current chapter is still Ch. ${chapter.chapter}`);
+        client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()}: Current chapter is still Ch. ${chapter.chapter}`);
       }
     });
-
   });
-}, 1800000);
+}
 
-function ping(chapter) {
-  console.log(`${new Date().toLocaleString()} - Pinging for chapter ${chapter.chapter}`);
+//Check for a new chapter once on init and again every UPDATE_INTERVAL milleseconds
+checkChapter();
+setInterval(checkChapter, process.env.UPDATE_INTERVAL);
 
-  client.channels.cache.get('782293480038727730').send(`${new Date().toLocaleString()} - Pinging for chapter ${chapter.chapter}`);
-
-  client.channels.cache.get('755842328588976168').send(`<@&541810268615737359>\nHey everyone, chapter ${chapter.chapter} is out now from ${chapter.groups[0].title}!\n${chapter.url}`);
+//Function to handle message sending on a manga update
+function sendMessage(chapter) {
+  //Console log for 
+  console.log(`${new Date().toLocaleString()}: Sending message for Ch. ${chapter.chapter}`);
+  //Sends a message to the admin bot logging channel
+  client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()}: Sending message for Ch. ${chapter.chapter}`);
+  //Sends a message to the update channel with the chapter number, translation group, and Mangadex URL
+  client.channels.cache.get(process.env.DISCORD_CHANNEL).send(`<@&${process.env.DISCORD_ROLE}>\nHey everyone, chapter ${chapter.chapter} is out now from ${chapter.groups[0].title}!\n${chapter.url}`);
 }
