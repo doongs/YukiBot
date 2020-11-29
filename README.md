@@ -1,6 +1,7 @@
 # Yuki Yoshikawa
 
-![Yuki Yoshikawa](https://i.imgur.com/hoqG1zW.jpg)
+![Yuki Yoshikawa](https://i.imgur.com/hoqG1zW.jpg)      
+     
 Discord bot for notifying users of Mangadex chapter updates
 Running on Repl.it
 
