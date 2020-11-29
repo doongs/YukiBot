@@ -10,6 +10,7 @@ Running on Repl.it
  - Follow the instructions found [here](https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot) and [here](https://discordjs.guide/preparations/adding-your-bot-to-servers.html) to get your bot set up in the Discord Developer Portal where it can have its own unique name and profile icon
  - Download a copy of the files in this repository for use in step 3 (***Don't directly use this repository***)
  - Follow [this](https://anidiots.guide/hosting/repl) detailed guide to setup continuous hosting for your bot on Repl.it 
+ - Edit the name and description in the package-lock.json file 
  - If needed, create a Mangadex account for the bot
  - The .env file should be configured as follows (***Do not expose this data or you may violate the Discord Terms of Service)***  
 	DISCORD_TOKEN=the bot secret token (string)  
