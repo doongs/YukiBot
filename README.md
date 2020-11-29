@@ -26,6 +26,6 @@ Running on Repl.it
 ## Commands
 To use the following commands, type [PREFIX].[COMMAND] into any Discord channel
 Currently, all users have access to the commands here 
- - checkChapter
+ - checkChapter (manually check for a new chapter update)
 ---
 If you find this bot helpful, you can [buy me a coffee](https://www.buymeacoffee.com/doongs)!
