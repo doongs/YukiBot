@@ -21,8 +21,8 @@ client.on('ready', () => {
 });
 //Handle the manual prefix.checkChapter command 
 client.on('message', msg => {
-  if (msg.content === `${process.env.PREFIX}.checkChapter`) {
-    client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()}: Manual chapterpdate requested`);
+  if (msg.content === `${process.env.PREFIX}.check`) {
+    client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()}: Manual chapter update requested`);
     checkChapter();
   }
 });

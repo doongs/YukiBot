@@ -26,6 +26,6 @@ Running on Repl.it
 ![Console Log Example](https://i.imgur.com/85MQtLi.png)	 ![Discord Log Example](https://i.imgur.com/BVlng3W.png)
 ## Commands
 To use the following commands, type [PREFIX].[COMMAND] into any Discord channel
- - checkChapter (manually check for a new chapter update)
+ - check (manually check for a new chapter update)
 ---
 If you find this bot helpful, you can [buy me a coffee](https://www.buymeacoffee.com/doongs)!
