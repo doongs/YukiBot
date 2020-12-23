@@ -50,7 +50,7 @@ client.on('message', msg => {
 //uncomment this to reset the lastChapter key in the database to 0, uncomment the following line to reset the lastEpisode key in the database to 0
 
 //db.set("lastChapter", 0).then(() => { console.log(`lastChapter set to 0`) });
-db.set("lastEpisode", 0).then(() => { console.log(`lastEpisode set to 0`) });
+//db.set("lastEpisode", 0).then(() => { console.log(`lastEpisode set to 0`) });
 //Logs the bot into Mangadex and determines if a new chapter has been uploaded
 function checkChapter() {
   //Mangadex Login
