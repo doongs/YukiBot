@@ -157,13 +157,18 @@ function handleError(error) {
 }
 
 //Check for a new chapter once on init and again every UPDATE_INTERVAL milleseconds
-checkChapter();
-checkEpisode();
+client.login().then(() => {
+    checkChapter();
+    //checkEpisode();
+});
+
 setInterval(() => {
-  checkChapter(); 
-  checkEpisode();
-}, 
-process.env.UPDATE_INTERVAL);
+        client.login().then(() => {
+            checkChapter();
+            //checkEpisode();
+        });
+    },
+    process.env.UPDATE_INTERVAL);
 
 //Function to handle message sending on a manga update
 function sendMessage(chapter) {
