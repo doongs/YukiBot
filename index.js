@@ -179,7 +179,7 @@ function sendAnimeMessage(newestEpisode){
   //This is effectively a copy of sendMessage, just written in terms of the checkEpisode function
   console.log(`${new Date().toLocaleString()}: Sending message for Ep. ${newestEpisode.title}`);
   client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()} Sending message for episode ${newestEpisode.title}`);
-  client.channels.cache.get(process.env.DISCORD_CHANNEL).send(`<@&${process.env.DISCORD_ROLE}> A new episode has been released! It is ${newestEpisode.title}, Here is the link! ${newestEpisode.url}`);
+  client.channels.cache.get(process.env.DISCORD_CHANNEL).send(`<@&${process.env.DISCORD_ROLE}>\nHey everyone, episode ${newestEpisode.title} is out now! Go watch it here:\n${newestEpisode.url}`);
 
 }
 
