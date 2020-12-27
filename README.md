@@ -14,9 +14,11 @@ Running on Repl.it
  - If needed, create a Mangadex account for the bot
  - The .env file should be configured as follows (***Do not expose this data or you may violate the Discord Terms of Service)***  
 	DISCORD_TOKEN=the bot secret token (string)  
-	DISCORD_CHANNEL=the update channel id (int)  
+	DISCORD_MANGA_CHANNEL=the manga update channel id (int)
+    DISCORD_ANIME_CHANNEL=the anime update channel id (int)
 	DISCORD_LOG=the admin logging channel (int)  
-	DISCORD_ROLE=the role id to mention for chapter updates (int)  
+	DISCORD_MANGA_ROLE=the role id to mention for chapter updates (int)
+    DISCORD_ANIME_ROLE=the role id to mention for anime updates (int)
 	MANGADEX_USERNAME=the Mangadex username used to authorize the bot's access to the API (string)  
 	MANGADEX_PASSWORD=the Mangadex password used to authorize the bot's access to the API (string)  
 	MANGADEX_ID=the Mangadex id for the manga to check (int)  
