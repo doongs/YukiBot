@@ -46,12 +46,8 @@ client.on('message', msg => {
   if(msg.content.includes(`${process.env.PREFIX}.epRelease`)){
     msg.channel.send("Horimiya's anime is released every Saturday at 5:00PM (17:00) GMT.");
   }
-  if (msg.content.toLowerCase().includes('next') || msg.content.toLowerCase().includes('out') || msg.content.toLowerCase().includes('new')) {
-    if (msg.content.toLowerCase().includes('when') || msg.content.toLowerCase().includes('whens')) {
-      if (msg.content.toLowerCase().includes('chapter')) {
-        msg.channel.send("Don't ask that, it'll come when it comes.");
-      }
-    }
+  if (msg.content.includes(`${process.env.PREFIX}.when`)) {
+    msg.channel.send("Horimiya releases on a monthly schedule and is translated by a volunteer group.We know about the next chapter release as much as you do (nothing). The final chapter is being released ***in Japan*** on March 18th. If you want to be first to be notified, join the scanlation group and help scanlate the manga: https://tsundere.services/");
   }
 });
 
