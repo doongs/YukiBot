@@ -36,6 +36,16 @@ client.on('message', msg => {
     client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()} Manual Anime Update requested`);
     checkEpisode();
   }
+  if(msg.content.includes(`${process.env.PREFIX}.art`))
+  {
+     msg.channel.send("Media channels were removed because 1) People didn't care about most of the posted media  2) The media people actually talked about created discussions which should have been in #spoilers or #no-spoilers");
+  }
+  if(msg.content.includes(`${process.env.PREFIX}.noRaws`)){
+    msg.channel.send('While we do not have an official rule that states you cannot post or discuss raws, leaks, or speedscans, We would appreciate if you did not post them. This "request" applies to all series, but epsecially the following: *Attack on Titan/Shingeki no Kyojin*, *Kaguya-Sama: Love is war*, *Oshi no Ko*, and *Kanojo, Okarishimasu*. We hope you understand.');
+  }
+  if(msg.content.includes(`${process.env.PREFIX}.epRelease`)){
+    msg.channel.send("Horimiya's anime is released every Saturday at 5:00PM (17:00) GMT.");
+  }
   if (msg.content.toLowerCase().includes('next') || msg.content.toLowerCase().includes('out') || msg.content.toLowerCase().includes('new')) {
     if (msg.content.toLowerCase().includes('when') || msg.content.toLowerCase().includes('whens')) {
       if (msg.content.toLowerCase().includes('chapter')) {
