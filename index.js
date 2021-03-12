@@ -27,27 +27,33 @@ client.on('message', msg => {
     client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()}: Manual chapter update requested`);
     checkChapter();
   }
-  if (msg.content.includes(`${process.env.PREFIX}.extra`)) {
+  if (msg.content === (`${process.env.PREFIX}.extra`)) {
     client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()}: Manual chapter update requested`);
     var num = msg.content.replace(/[^0-9]/g, '');
     extraChapter(num);
   }
-  if (msg.content.includes(`${process.env.PREFIX}.anime`)) {
+  if (msg.content === (`${process.env.PREFIX}.anime`)) {
     client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()} Manual Anime Update requested`);
     checkEpisode();
   }
-  if(msg.content.includes(`${process.env.PREFIX}.art`))
+  if(msg.content === (`${process.env.PREFIX}.art`))
   {
      msg.channel.send("Media channels were removed because 1) People didn't care about most of the posted media  2) The media people actually talked about created discussions which should have been in #spoilers or #no-spoilers");
   }
-  if(msg.content.includes(`${process.env.PREFIX}.noRaws`)){
+  if(msg.content === (`${process.env.PREFIX}.noRaws`)){
     msg.channel.send('While we do not have an official rule that states you cannot post or discuss raws, leaks, or speedscans, We would appreciate if you did not post them. This "request" applies to all series, but epsecially the following: *Attack on Titan/Shingeki no Kyojin*, *Kaguya-Sama: Love is war*, *Oshi no Ko*, and *Kanojo, Okarishimasu*. We hope you understand.');
   }
-  if(msg.content.includes(`${process.env.PREFIX}.epRelease`)){
+  if(msg.content === (`${process.env.PREFIX}.epRelease`)){
     msg.channel.send("Horimiya's anime is released every Saturday at 5:00PM (17:00) GMT.");
   }
-  if (msg.content.includes(`${process.env.PREFIX}.when`)) {
+  if (msg.content === (`${process.env.PREFIX}.when`)) {
     msg.channel.send("Horimiya releases on a monthly schedule and is translated by a volunteer group.We know about the next chapter release as much as you do (nothing). The final chapter is being released ***in Japan*** on March 18th. If you want to be first to be notified, join the scanlation group and help scanlate the manga: https://tsundere.services/");
+  }
+  if(msg.content === (`${process.env.PREFIX}.credit`)){
+    msg.channel.send("Please say thank you to Yuki's wonderful, incredible developer, Epsev, and his not so wonderful unpaid intern, Alternis, for their work on Yuki's code. If you enjoy this bot, or any of the other coding wonders that Epsev wrote, please make sure to buy him a coffee at https://www.buymeacoffee.com/doongs");
+  }
+  if(msg.content === (`${process.env.PREFIX}.questionable`)){
+    msg.channel.send("<@130868260731092993> Get a load of this opinion!");
   }
 });
 
@@ -161,18 +167,18 @@ query ($id: Int) {
 
 //Check for a new chapter once on init and again every UPDATE_INTERVAL milleseconds
 
-client.login().then(() => {
+client.login(process.env.TOKEN).then(() => {
   checkChapter();
   //checkEpisode();
 });
 
-setInterval(() => {
-  client.login().then(() => {
-    checkChapter();
-    //checkEpisode();
-  });
-},
-  process.env.UPDATE_INTERVAL);
+// setInterval(() => {
+//   client.login(process.env.TOKEN).then(() => {
+//     checkChapter();
+//     //checkEpisode();
+//   });
+// },
+//   process.env.UPDATE_INTERVAL);
 
 //Function to handle message sending on a manga update
 function sendMessage(chapter) {
