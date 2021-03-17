@@ -27,27 +27,41 @@ client.on('message', msg => {
     client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()}: Manual chapter update requested`);
     checkChapter();
   }
-  if (msg.content.includes(`${process.env.PREFIX}.extra`)) {
+  if (msg.content === (`${process.env.PREFIX}.extra`)) {
     client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()}: Manual chapter update requested`);
     var num = msg.content.replace(/[^0-9]/g, '');
     extraChapter(num);
   }
-  if (msg.content.includes(`${process.env.PREFIX}.anime`)) {
+  if (msg.content === (`${process.env.PREFIX}.anime`)) {
     client.channels.cache.get(process.env.DISCORD_LOG).send(`${new Date().toLocaleString()} Manual Anime Update requested`);
     checkEpisode();
   }
-  if(msg.content.includes(`${process.env.PREFIX}.art`))
+
+  //FAQ and QOL commands for the Horimiya discord
+  if(msg.content === (`${process.env.PREFIX}.art`))
   {
      msg.channel.send("Media channels were removed because\n1) People didn't care about most of the posted media\n2) The media people actually talked about created discussions which should have been in #spoilers or #no-spoilers");
   }
-  if(msg.content.includes(`${process.env.PREFIX}.noRaws`)){
+  if(msg.content === (`${process.env.PREFIX}.noRaws`)){
     msg.channel.send('While we do not have an official rule that states you cannot post or discuss raws, leaks, or speedscans, We would appreciate if you did not post them. This "request" applies to all series, but epsecially the following: *Attack on Titan/Shingeki no Kyojin*, *Kaguya-Sama: Love is war*, *Oshi no Ko*, and *Kanojo, Okarishimasu*. We hope you understand.');
   }
-  if(msg.content.includes(`${process.env.PREFIX}.epRelease`)){
+  if(msg.content === (`${process.env.PREFIX}.epRelease`)){
     msg.channel.send("Horimiya's anime is released every Saturday at 5:00PM (17:00) GMT.");
   }
-  if (msg.content.includes(`${process.env.PREFIX}.when`)) {
+  if (msg.content === (`${process.env.PREFIX}.when`)) {
     msg.channel.send("Horimiya releases on a monthly schedule and is translated by a volunteer group.We know about the next chapter release as much as you do (nothing). The final chapter is being released ***in Japan*** on March 18th. If you want to be first to be notified, join the scanlation group and help scanlate the manga: https://tsundere.services/");
+  }
+  if(msg.content === (`${process.env.PREFIX}.credit`)){
+    msg.channel.send("Please say thank you to Yuki's wonderful, incredible developer, Epsev, and the writer of some of the FAQ commands, Alternis, for their work on Yuki's code. If you enjoy this bot or any of Epsev's other projects like Seiyuusauce, please make sure to buy him a coffee at https://www.buymeacoffee.com/doongs .");
+  }
+  if(msg.content === (`${process.env.PREFIX}.commonSense`)){
+    msg.channel.send("Please remember to use common sense when asking questions. Please follow the following logical process if you need assistance: \n 1. Am I in the right channel \n 2. Can I google my question? \n If you answered 'Yes' to the first question, and 'No' to the second, go ahead, ask your question. Otherwise please either move to the correct channel, or google your question. Thank you.");
+  }
+  if(msg.content === (`${process.env.PREFIX}.s2`)){
+    msg.channel.send("No, we don't know if there is a season two of Horimiya's anime. In an interview, the director implied that the ending of the Horimiya anime would be where he'd like us to think Horimiya ends. Please, if you have complaints about this, direct them to Clover Works on Twitter, not to us or our staff team.");
+  }
+  if(msg.content === (`${process.env.PREFIX}.rules`)){
+    msg.channel.send("You have obviously not read the rules of this server. Please check the rules channel, and while you are at it, please check the other channels in the catagory marked 'Important', Thank you!");
   }
 });
 
@@ -161,18 +175,18 @@ query ($id: Int) {
 
 //Check for a new chapter once on init and again every UPDATE_INTERVAL milleseconds
 
-client.login().then(() => {
+client.login(process.env.TOKEN).then(() => {
   checkChapter();
   //checkEpisode();
 });
 
-setInterval(() => {
-  client.login().then(() => {
-    checkChapter();
-    //checkEpisode();
-  });
-},
-  process.env.UPDATE_INTERVAL);
+// setInterval(() => {
+//   client.login(process.env.TOKEN).then(() => {
+//     checkChapter();
+//     //checkEpisode();
+//   });
+// },
+//   process.env.UPDATE_INTERVAL);
 
 //Function to handle message sending on a manga update
 function sendMessage(chapter) {
